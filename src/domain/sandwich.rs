@@ -85,7 +85,7 @@ pub struct Sandwich {
 }
 
 impl Sandwich {
-    pub fn new(id: String, name: String, ingredients: Vec<String>, sandwich_type: SandwichType) -> Result<Self, String> {
+    pub fn new(id: String, name: String, ingredients: Vec<String>, sandwich_type: SandwichType) -> Result<Sandwich, String> {
         let sandwich_id = SandwichId::try_from(id)?;
         let sandwich_name = SandwichName::try_from(name)?;
         let sandwich_ingrs = SandwichIngredients::try_from(ingredients)?;
@@ -126,9 +126,10 @@ impl fmt::Display for Sandwich {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
+    use crate::tests::test_utils::shared::SANDWICH_TYPE;
+
     use super::*;
 
     const SANDWICH_ID: &str = "sand-id";
@@ -141,7 +142,7 @@ mod tests {
         let hot_dog = Sandwich::new(SANDWICH_ID.to_string(),
                                     SANDWICH_NAME.to_string(),
                                     ingredients.clone(),
-                                    SandwichType::Meat)
+                                    SANDWICH_TYPE)
             .unwrap();
 
         assert_eq!(hot_dog.id().value().as_ref().unwrap(), SANDWICH_ID);
@@ -161,7 +162,7 @@ mod tests {
         let err_sandwich = Sandwich::new("".to_string(),
                                          "".to_string(),
                                          vec!["Wurst".to_string(), "Ketchup".to_string()],
-                                         SandwichType::Meat);
+                                         SANDWICH_TYPE);
 
         assert_eq!(err_sandwich.is_err(), true);
         assert_eq!(err_sandwich.unwrap_err(), "Any sandwich must have a name");
@@ -170,7 +171,7 @@ mod tests {
         let err_sandwich = Sandwich::new(SANDWICH_ID.to_string(),
                                          SANDWICH_NAME.to_string(),
                                          vec![],
-                                         SandwichType::Meat);
+                                         SANDWICH_TYPE);
 
         assert_eq!(err_sandwich.is_err(), true);
         assert_eq!(err_sandwich.unwrap_err(), "Any sandwich must have at least one ingredient");

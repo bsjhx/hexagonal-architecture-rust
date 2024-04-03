@@ -1,10 +1,12 @@
 #[derive(Debug)]
 pub enum DeleteOneError {
+    InvalidData(String),
     Unknown(String),
+    NotFound
 }
 
 // this is my port / use case
-fn delete_one_sandwich(id: &str) -> Result<(), DeleteOneError> {
+pub fn delete_one_sandwich(id: &str) -> Result<(), DeleteOneError> {
 
     Ok(())
 }

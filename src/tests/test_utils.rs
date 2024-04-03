@@ -48,4 +48,11 @@ pub mod shared {
     pub fn stub_ingredients() -> Vec<String> {
         vec!["Wurst".to_string(), "Ketchup".to_string()]
     }
+
+    pub fn stub_cheeseburger_ingredients() -> Vec<String> {
+        vec!(String::from("ground meat"),
+             String::from("cheese"),
+             String::from("ketchup"),
+             String::from("mayo"))
+    }
 }
